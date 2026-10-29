@@ -1,0 +1,37 @@
+
+name: Test Lowest Number Application
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  test-lowest-number:
+    name: Test Python Lowest Number Program
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+
+      - name: Test 1 - File with 10 numbers
+        run: |
+          python3 find_lowest_number.py test_data/test1_input.txt test1_output.txt
+          diff test_data/test1_expected.txt test1_output.txt
+
+      - name: Test 2 - File with 1 number
+        run: |
+          python3 find_lowest_number.py test_data/test2_input.txt test2_output.txt
+          diff test_data/test2_expected.txt test2_output.txt
+
+      - name: Test 3 - Blank input file
+        run: |
+          python3 find_lowest_number.py test_data/test3_input.txt test3_output.txt
+          diff test_data/test3_expected.txt test3_output.txt
